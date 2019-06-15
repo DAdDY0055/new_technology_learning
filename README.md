@@ -1,0 +1,2 @@
+# new_technology_learning
+新技術を学ぶ時に色々と試すリポジトリ
