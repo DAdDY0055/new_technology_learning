@@ -5,15 +5,23 @@ var app = new Vue({
     keyword: "",
     message: ""
   },
-  watch: {},
+  watch: {
+    keyword: function(newKeyword, oldKeyword) {
+      //   console.log(newKeyword)
+      this.message = "Waiting for you to step typing...";
+      this.debouncedGetAnswer();
+    }
+  },
   created: function() {
-    this.keyword = "JavaScript";
-    this.getAnswer();
+    // this.keyword = "JavaScript";
+    // this.getAnswer();
+    this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000);
   },
   methods: {
     getAnswer: function() {
       if (this.keyword === "") {
         this.items = null;
+        this.message = "";
         return;
       }
 
