@@ -1,9 +1,20 @@
 defmodule LoginChat do
-  @moduledoc """
-  LoginChat keeps the contexts that define your domain
-  and business logic.
+  use Ecto.Schema
+  import Ecto.Changeset
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  schema "users" do
+    field :email, :string
+    field :name, :string
+    field :password, :string, virtual: true  # → 修正する
+    field :password_hash, :string
+
+    timestamps()
+  end
+
+  @doc false
+  def changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :email, :password, :password_hash])
+    |> validate_required([:name, :email, :password, :password_hash])
+  end
 end
