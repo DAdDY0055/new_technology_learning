@@ -29,6 +29,8 @@ defmodule NervesTeamUI.Scene.Home do
       Graph.build(font: ScenicFontPressStart2p.hash(), font_size: @text_size)
       |> text(@note, text_align: :center, translate: center) 
 
+     send(self(), :connect)
+
      {:ok, %{
       graph: graph,
       viewport: opts[:viewport]
@@ -39,4 +41,15 @@ defmodule NervesTeamUI.Scene.Home do
   #  Logger.info("Received event: #{inspect(event)}")
   #  {:noreply, state}
   # end
+
+  def handle_info(:connect, %{viewport: viewport} = state) do
+    if PhoenixClient.Socket.connected?(PhoenixClient.Socket) do
+      ViewPort.set_root(viewport,
+        {NervesTeamUI.Scene.Lobby, nil})
+    else
+      Process.send_after(self(), :connect, 1_000)
+    end
+    {:noreply, state}
+  end
+
 end
