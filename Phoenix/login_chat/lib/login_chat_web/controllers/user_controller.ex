@@ -7,3 +7,5 @@ defmodule LoginChatWeb.UserController do
     render(conn, "index.html", users: users)
   end
 end
+
+
