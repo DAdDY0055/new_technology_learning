@@ -6,7 +6,7 @@
         nuxt-sample
       </h1>
       <h2 class="subtitle">
-        My stupendous Nuxt.js project
+        nuxt入門
       </h2>
       <div class="links">
         <a
