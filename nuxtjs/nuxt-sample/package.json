@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.10.3",
     "element-ui": "^2.13.1",
     "nuxt": "^2.0.0"
   },
