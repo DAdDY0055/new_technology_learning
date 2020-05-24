@@ -34,8 +34,6 @@ export default () =>
           this.$axios.$get(`https://qiita.com/api/v2/users/${id}`),
           this.$axios.$get(`https://qiita.com/api/v2/items?query=user:${id}`)
         ])
-        console.log('user', user)
-        console.log('items', items)
         commit('setUser', { user })
         commit('setUserItems', { user, items })
       }

@@ -39,14 +39,11 @@ export default {
     try {
       await store.dispatch('fetchUserInfo', { id: route.params.id })
     } catch (e) {
-      console.log('error', e)
-      console.log('error')
       redirect('/') // 簡易的なエラー処理として 404 を想定してリダイレクトさせる
     }
   },
   computed: {
     user() {
-      console.log('users', this.users)
       return this.users[this.$route.params.id]
     },
     items() {
