@@ -49,6 +49,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    // baseURL: 'https://<自分のFirebaseプロジェクトのID>.firecaseio.com'
   },
   /*
   ** Build configuration
