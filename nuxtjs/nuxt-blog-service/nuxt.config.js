@@ -2,6 +2,11 @@
 export default {
   mode: 'universal',
   srcDir: 'app',
+  router: {
+    middleware: [
+      'auth-cookie'
+    ]
+  },
   /*
   ** Headers of the page
   */
@@ -30,7 +35,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    { src: '@/plugins/element-ui', ssr: false } // SSRをサポートしていないプラグインを追加すると`Unexpected token 'export'`になるため、`ssr: falseとする`
   ],
   /*
   ** Nuxt.js dev-modules
