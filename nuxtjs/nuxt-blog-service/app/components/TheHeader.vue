@@ -14,7 +14,7 @@
     <el-menu-item index="4" style="floot: right;" :route="{ path: '/' }" v-else>
       <span>ログイン</span>
     </el-menu-item>
-    <el-menu-item index="5" style="floot: rigth" :route="{ path: '/post/new' }">
+    <el-menu-item index="5" style="floot: rigth" :route="{ path: '/posts/new' }">
       新規投稿
     </el-menu-item>
   </el-menu>
