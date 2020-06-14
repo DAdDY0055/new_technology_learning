@@ -10,7 +10,7 @@
           <el-input placeholder="" v-model="formData.id" />
         </div>
         <div class="form-content">
-          <el-checkbox v-model="isCreateModel">アカウントを作成する</el-checkbox>
+          <el-checkbox v-model="isCreateMode">アカウントを作成する</el-checkbox>
         </div>
         <div class="text-right">
           <el-button type="primary" @click="handleClickSubmit">{{buttonText}}</el-button>
@@ -30,7 +30,7 @@ export default {
       redirect('/posts/')
     }
     return {
-      isCreateModel: false,
+      isCreateMode: false,
       formData: {
         id: ''
       }
@@ -38,14 +38,14 @@ export default {
   },
   computed: {
     buttonText() {
-      return this.isCreateModel ? '新規登録' : 'ログイン'
+      return this.isCreateMode ? '新規登録' : 'ログイン'
     },
     ...mapGetters(['user'])
   },
   methods: {
     async handleClickSubmit() {
       const cookies = new Cookies()
-      if (this.isCreateModel) {
+      if (this.isCreateMode) {
         try {
           await this.register({ ...this.formData })
           this.$notify({

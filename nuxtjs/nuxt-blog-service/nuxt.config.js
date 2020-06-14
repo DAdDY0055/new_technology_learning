@@ -35,7 +35,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/element-ui', ssr: false } // SSRをサポートしていないプラグインを追加すると`Unexpected token 'export'`になるため、`ssr: falseとする`
+    // { src: '@/plugins/element-ui', ssr: false } // SSRをサポートしていないプラグインを追加すると`Unexpected token 'export'`になるため、`ssr: falseとする`
+    '@/plugins/element-ui'
   ],
   /*
   ** Nuxt.js dev-modules
