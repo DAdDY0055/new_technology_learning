@@ -2,6 +2,8 @@ version: '3'
 services:
   db:
     image: postgres
+    volumes:
+      - pgdatavol:/var/lib/postgres/data
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'trust'
   web:
@@ -13,3 +15,5 @@ services:
       - "3000:3000"
     depends_on:
       - db
+volumes:
+  pgdatavol:
