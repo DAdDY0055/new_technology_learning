@@ -56,6 +56,7 @@ export default {
   */
   axios: {
     // baseURL: 'https://<自分のFirebaseプロジェクトのID>.firecaseio.com'
+    baseURL: 'https://nuxt-js-blog-20200530.firebaseio.com'
   },
   /*
   ** Build configuration
