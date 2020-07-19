@@ -15,12 +15,16 @@ export const mutations = {
   updatePost(state, { post }) {
     state.posts = state.posts.map((p) => (p.id === post.id? post : p))
   },
-  clearPost(state) {
+  clearPosts(state) {
     state.posts = []
   }
 }
 
 export const actions = {
+  async fetchPost({ commit }, { id }) {
+    const post = await this.$axios.$get(`/posts/${id}.json`)
+    commit('addPost', { psot: { ...post, id } })
+  },
   async fetchPosts({ commit }) {
     const posts = await this.$axios.$get(`/posts.json`)
     commit('clearPosts')
