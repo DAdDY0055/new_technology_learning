@@ -162,7 +162,7 @@ func NewAuthorizerResponse(principalID string, AccountID string) *AuthorizerResp
 		APIGatewayCustomAuthorizerResponse: events.APIGatewayCustomAuthorizerResponse{
 			PrincipalID: principalID,
 			PolicyDocument: events.APIGatewayCustomAuthorizerPolicy{
-				Version: "2021-02-23",
+				Version: "2012-10-17", // バージョンはこれでないとInvalid versionになる
 			},
 		},
 		Region:    "*",
