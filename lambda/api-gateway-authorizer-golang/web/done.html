@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lambda Authorizer Sample</title>
+</head>
+<body>
+  <h1>...Please wait</h1>
+  <div id="email"></div>
+  <div id="token"></div>
+
+  <!-- FirebaseSDKのインポート -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+
+  <!-- FirebaseAuthのインポート -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+
+  <!-- configファイルのインポート -->
+  <script src="./config.js"></script>
+  <script>
+    // User情報の表示
+    firebase.auth().onAuthStateChanged(function(user) {
+      let h1    = document.querySelector('h1');
+      let email = document.querySelector('#email');
+      let token = document.querySelector('#token');
+
+      if (user) {
+        console.log('user', user)
+        h1.innerText   = 'ログインしました';
+        email.innerHTML = `メールアドレス:${user.email}`;
+        user.getIdToken().then(function(accessToken) {
+          console.log('accessToken', accessToken)
+          token.innerHTML = `JWTトークン:${accessToken}`;
+        }, null, ' ');
+      }
+    });
+  </script>
+</body>
+</html>
