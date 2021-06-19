@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Lambda Authorizer Sample</title>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css" />
+  <style>h1{text-align: center;}</style>
+</head>
+<body>
+  <h1>Lambda Authorizer Sample</h1>
+  <div id="firebaseui-auth-container"></div>
+
+  <!-- FirebaseSDKのインポート -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
+
+  <!-- FirebaseAuthのインポート -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
+
+  <!-- configファイルのインポート -->
+  <script src="./js/config.js"></script>
+  <script>
+    // FirebaseUIの設定
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', {
+      // ログイン完了時のリダイレクト先
+      signInSuccessUrl: './pets.html',
+
+      // 利用する認証機能
+      signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+      ],
+    });
+
+    // User情報の表示
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log('user', user)
+        user.getIdToken().then(function(accessToken) {
+          console.log('accessToken', accessToken)
+        }, null, ' ');
+      }
+    });
+</script>
+</body>
+</html>

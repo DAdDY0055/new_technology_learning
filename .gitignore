@@ -1,4 +1,7 @@
 lambda/api-gateway-authorizer-golang/web/js/config.js
-*-firebase-adminsdk-*.json
+# *-firebase-adminsdk-*.json
 lambda/sam/sam-app
 build.toml
+jwt-lambda-auth-firebase-adminsdk-3sa6r-c2e0d97f93.json
+config.js
+samconfig.toml

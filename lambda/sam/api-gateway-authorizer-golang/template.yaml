@@ -1,0 +1,122 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description:  Sample API Gateway Lambda Authorizer by Golang.
+Resources:
+  SampleRestApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      Description: "This is Sample Rest API"
+      Cors:
+        AllowMethods: "'GET, OPTIONS'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+      Auth:
+        DefaultAuthorizer: MyLambdaAuthorizerFunction
+        Authorizers:
+          MyLambdaAuthorizerFunction:
+            FunctionArn: !GetAtt LambdaAuthorizerFunction.Arn
+  RootFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+            RestApiId:
+              Ref: SampleRestApi
+      Runtime: python3.7
+      Handler: index.handler
+      InlineCode: |
+        def handler(event, context):
+            return {
+            'statusCode': 200,
+              'headers': {
+                  'Access-Control-Allow-Headers': 'Content-Type',
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+              }
+            }
+  AdminFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /admin
+            Method: get
+            RestApiId:
+              Ref: SampleRestApi
+      Runtime: python3.7
+      Handler: admin.handler
+      InlineCode: |
+        def handler(event, context):
+            return {
+            'statusCode': 200,
+              'headers': {
+                  'Access-Control-Allow-Headers': 'Content-Type',
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+              }
+            }
+  LeaderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /leader
+            Method: get
+            RestApiId:
+              Ref: SampleRestApi
+      Runtime: python3.7
+      Handler: admin.handler
+      InlineCode: |
+        def handler(event, context):
+            return {
+            'statusCode': 200,
+              'headers': {
+                  'Access-Control-Allow-Headers': 'Content-Type',
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+              }
+            }
+  UserFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: get
+            RestApiId:
+              Ref: SampleRestApi
+      Runtime: python3.7
+      Handler: user.handler
+      InlineCode: |
+        def handler(event, context):
+            return {
+            'statusCode': 200,
+              'headers': {
+                  'Access-Control-Allow-Headers': 'Content-Type',
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+              }
+            }
+  LambdaAuthorizerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: samAuth
+      CodeUri: ./lambda_auth # buildされるが、configがアップされなかったので、`/build/関数名`のディレクトリに手動で配置
+      Handler: app.lambda_handler
+      Runtime: go1.x
+
+Outputs:
+  SampleRestApi:
+    Description: "Sample API Gateway Lambda Authorizer by Golang."
+    Value: !Sub "https://${SampleRestApi}.execute-api.${AWS::Region}.amazonaws.com/dev/"
