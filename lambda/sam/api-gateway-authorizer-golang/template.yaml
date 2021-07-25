@@ -51,8 +51,9 @@ Resources:
             RestApiId:
               Ref: SampleRestApi
       Runtime: python3.7
-      Handler: admin.handler
+      Handler: index.handler
       InlineCode: |
+        import json
         def handler(event, context):
             return {
             'statusCode': 200,
@@ -60,8 +61,11 @@ Resources:
                   'Access-Control-Allow-Headers': 'Content-Type',
                   'Access-Control-Allow-Origin': '*',
                   'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-              }
-            }
+              },
+            'body': json.dumps({
+              'message': 'admin情報',
+            }),
+          }
   LeaderFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -69,22 +73,26 @@ Resources:
         ApiEvent:
           Type: Api
           Properties:
-            Path: /leader
+            Path: /leaders
             Method: get
             RestApiId:
               Ref: SampleRestApi
       Runtime: python3.7
-      Handler: admin.handler
+      Handler: index.handler
       InlineCode: |
+        import json
         def handler(event, context):
             return {
             'statusCode': 200,
-              'headers': {
+            'headers': {
                   'Access-Control-Allow-Headers': 'Content-Type',
-                  'Access-Control-Allow-Origin': '*',
-                  'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-              }
-            }
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            },
+            'body': json.dumps({
+              'message': 'leader情報',
+            }),
+          }
   UserFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -92,13 +100,14 @@ Resources:
         ApiEvent:
           Type: Api
           Properties:
-            Path: /user
+            Path: /users/8eMzOlFSDcVJU8U4zjwNA9pyMlr1
             Method: get
             RestApiId:
               Ref: SampleRestApi
       Runtime: python3.7
-      Handler: user.handler
+      Handler: index.handler
       InlineCode: |
+        import json
         def handler(event, context):
             return {
             'statusCode': 200,
@@ -106,7 +115,10 @@ Resources:
                   'Access-Control-Allow-Headers': 'Content-Type',
                   'Access-Control-Allow-Origin': '*',
                   'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-              }
+              },
+              'body': json.dumps({
+                'message': 'user情報',
+              }),
             }
   LambdaAuthorizerFunction:
     Type: AWS::Serverless::Function

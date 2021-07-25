@@ -67,22 +67,30 @@ func handleRequest(ctx context.Context, event events.APIGatewayCustomAuthorizerR
 	// メールアドレスを取得 TODO: ここでclameを元にポリシーを作る
 	// ユーザーID
 	// 権限 0:admin, 1:リーダー, 2:作業者
-	email := token.Claims["email"] // clameには何があるか？？
+	// var userID
+	// userID = token.Claims["id"]
+	userID := token.UID
+	clames := token.Claims
+	email := token.Claims["email"] // こんな感じにしたい
+	// policy := token.Claims["policy"] // こんな感じにしたい
+	pp.Println("token.Claims", clames)
 	pp.Println("token.Claims", token.Claims)
-	log.Println("token.Claims", token.Claims)
 	// event.MethodArnに何が入っている？
 	pp.Println("event", event.MethodArn)
-	log.Println("event", event.MethodArn)
+	pp.Println("event", event.MethodArn)
 
 	pp.Println("event", event.Type)
 
+	apiArn := "arn:aws:execute-api:ap-northeast-1:052393924256:x7ow8vkh09/dev"
+
 	switch email {
 	case "admin@example.com":
-		return generatePolicy("admin", "Allow", []string{"arn:aws:execute-api:ap-northeast-1:052393924256:x7ow8vkh09/dev/GET/*"}), nil
-	case "user@example.com":
-		return generatePolicy("user", "Allow", []string{"arn:aws:execute-api:ap-northeast-1:052393924256:x7ow8vkh09/dev/GET/user"}), nil
+		return generatePolicy("admin", "Allow", []string{apiArn + "/GET/*"}), nil
 	case "leader@example.com":
-		return generatePolicy("leader", "Allow", []string{"arn:aws:execute-api:ap-northeast-1:052393924256:x7ow8vkh09/dev/GET/leader"}), nil
+		// return generatePolicy("leader", "Allow", []string{apiArn + "/GET/leaders", apiArn + "/GET/leaders/*", apiArn + "/GET/users/*"}), nil
+		return generatePolicy("leader", "Allow", []string{apiArn + "/GET/leaders*", apiArn + "/GET/users*"}), nil
+	case "user@example.com":
+		return generatePolicy("user", "Allow", []string{apiArn + "/GET/users/" + userID}), nil
 	case "deny@example.com":
 		return generatePolicy("deny", "Deny", []string{}), nil
 	case "unauthorized":
@@ -90,6 +98,22 @@ func handleRequest(ctx context.Context, event events.APIGatewayCustomAuthorizerR
 	default:
 		return events.APIGatewayCustomAuthorizerResponse{}, errors.New("Error: Invalid token")
 	}
+
+	// TODO: こうしたい
+	// switch policy {
+	// case 1:
+	// 	return generatePolicy("admin", "Allow", []string{apiArn + "/GET/*"}), nil
+	// case 2:
+	// 	return generatePolicy("leader", "Allow", []string{apiArn + "/GET/leader"}), nil
+	// case 3:
+	// 	return generatePolicy("user", "Allow", []string{apiArn + "/GET/user" + userID}), nil
+	// case 4:
+	// 	return generatePolicy("deny", "Deny", []string{}), nil
+	// case "unauthorized":
+	// 	return events.APIGatewayCustomAuthorizerResponse{}, errors.New("Unauthorized") // Return a 401 Unauthorized response
+	// default:
+	// 	return events.APIGatewayCustomAuthorizerResponse{}, errors.New("Error: Invalid token")
+	// }
 }
 
 func main() {

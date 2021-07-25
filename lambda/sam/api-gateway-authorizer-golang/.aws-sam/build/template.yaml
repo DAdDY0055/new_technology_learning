@@ -36,6 +36,42 @@ Resources:
         \      'headers': {\n          'Access-Control-Allow-Headers': 'Content-Type',\n\
         \          'Access-Control-Allow-Origin': '*',\n          'Access-Control-Allow-Methods':\
         \ 'OPTIONS,POST,GET'\n      }\n    }\n"
+  AdminFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /admin
+            Method: get
+            RestApiId:
+              Ref: SampleRestApi
+      Runtime: python3.7
+      Handler: index.handler
+      InlineCode: "import json\ndef handler(event, context):\n    return {\n    'statusCode':\
+        \ 200,\n      'headers': {\n          'Access-Control-Allow-Headers': 'Content-Type',\n\
+        \          'Access-Control-Allow-Origin': '*',\n          'Access-Control-Allow-Methods':\
+        \ 'OPTIONS,POST,GET'\n      },\n    'body': json.dumps({\n      'message':\
+        \ 'admin\u60C5\u5831',\n    }),\n  }\n"
+  LeaderFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /leaders
+            Method: get
+            RestApiId:
+              Ref: SampleRestApi
+      Runtime: python3.7
+      Handler: index.handler
+      InlineCode: "import json\ndef handler(event, context):\n    return {\n    'statusCode':\
+        \ 200,\n    'headers': {\n          'Access-Control-Allow-Headers': 'Content-Type',\n\
+        \        'Access-Control-Allow-Origin': '*',\n        'Access-Control-Allow-Methods':\
+        \ 'OPTIONS,POST,GET'\n    },\n    'body': json.dumps({\n      'message': 'leader\u60C5\
+        \u5831',\n    }),\n  }\n"
   UserFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -43,16 +79,17 @@ Resources:
         ApiEvent:
           Type: Api
           Properties:
-            Path: /user
+            Path: /users/8eMzOlFSDcVJU8U4zjwNA9pyMlr1
             Method: get
             RestApiId:
               Ref: SampleRestApi
       Runtime: python3.7
       Handler: index.handler
-      InlineCode: "def handler(event, context):\n    return {\n    'statusCode': 200,\n\
-        \      'headers': {\n          'Access-Control-Allow-Headers': 'Content-Type',\n\
+      InlineCode: "import json\ndef handler(event, context):\n    return {\n    'statusCode':\
+        \ 200,\n      'headers': {\n          'Access-Control-Allow-Headers': 'Content-Type',\n\
         \          'Access-Control-Allow-Origin': '*',\n          'Access-Control-Allow-Methods':\
-        \ 'OPTIONS,POST,GET'\n      }\n    }\n"
+        \ 'OPTIONS,POST,GET'\n      },\n      'body': json.dumps({\n        'message':\
+        \ 'user\u60C5\u5831',\n      }),\n    }\n"
   LambdaAuthorizerFunction:
     Type: AWS::Serverless::Function
     Properties:
