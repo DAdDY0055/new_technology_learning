@@ -28,6 +28,7 @@ ReactDOM.render(
     <Hello name="西郷隆盛"/>
     <Hello name="勝海舟"/>
     <Hello name="田中太郎" />
+    <Hello/>
     <HelloChildren>
       私だ。
     </HelloChildren>

@@ -1,8 +1,8 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 // Functional Component
-// const Hello = (props) =>  {
+// export const Hello = (props) =>  {
 //   return <div>こんにちは、{ props.name }さん</div>;
 // };
 
@@ -17,8 +17,14 @@ export class Hello extends React.Component  {
 export class HelloChildren extends React.Component  {
   render() {
     return <div>こんにちは、{this.props.children}さん</div>;
-    return <div>こんにちは、{this.props.children}さん</div>;
   }
 };
 
+Hello.propTypes = {
+  name: PropTypes.string
+};
+
+Hello.defaultProps = {
+  name: 'hogehoge'
+};
 // export default Hello;
