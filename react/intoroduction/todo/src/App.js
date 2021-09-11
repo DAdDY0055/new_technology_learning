@@ -18,7 +18,8 @@ class App extends Component {
     this.addTodo = this.addTodo.bind(this);
   }
 
-  addTodo(title) {
+  // addTodo(title) {
+  addTodo = (title) => {
     const {
       tasks,
       uniqueId,
