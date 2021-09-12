@@ -12,11 +12,21 @@ const loggerSetting = {
 
 const logger = createLogger(loggerSetting);
 
+const storegeMiddleware = store => next => action => {
+  const result = next(action);
+  window.localStorage.setItem('app-state', JSON.stringify(store.getState()));
+  return result;
+}
+
+const savedState = JSON.parse(localStorage.getItem('app-state'));
+
 // storeを生成
 const store = createStore(
   tasksReduser,
-  applyMiddleware(logger)
+  savedState ? savedState : tasksReduser(undefined, {type: 'INIT'}),
+  applyMiddleware(logger, storegeMiddleware)
 );
+
 
 render(
   <Provider store={store}>
