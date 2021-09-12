@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { render } from 'react-dom';
+import thunk from 'redux-thunk'
 import tasksReduser from './reducers/tasks';
 import TodoApp from './containers/TodoApp';
 import { createLogger } from 'redux-logger'
@@ -9,7 +10,6 @@ import { createLogger } from 'redux-logger'
 const loggerSetting = {
   predicate: (getState, action) => action.type !== 'HIGH_FREQUENCY_ACTION'
 };
-
 const logger = createLogger(loggerSetting);
 
 const storegeMiddleware = store => next => action => {
@@ -17,16 +17,16 @@ const storegeMiddleware = store => next => action => {
   window.localStorage.setItem('app-state', JSON.stringify(store.getState()));
   return result;
 }
-
 const savedState = JSON.parse(localStorage.getItem('app-state'));
+
+const middleware = [logger, thunk, storegeMiddleware]
 
 // storeを生成
 const store = createStore(
   tasksReduser,
   savedState ? savedState : tasksReduser(undefined, {type: 'INIT'}),
-  applyMiddleware(logger, storegeMiddleware)
+  applyMiddleware(...middleware)
 );
-
 
 render(
   <Provider store={store}>
