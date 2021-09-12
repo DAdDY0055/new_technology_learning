@@ -1,18 +1,16 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import { render } from 'react-dom';
 import tasksReduser from './reducers/tasks';
-import TodoApp from './components/TodoApp';
-import { createStore } from 'redux';
+import TodoApp from './containers/TodoApp';
 
 // storeを生成
 const store = createStore(tasksReduser);
 
-function renderApp(store) {
-  render(
-    <TodoApp store={store} />,
-    document.getElementById('root')
-  );
-}
-
-store.subscribe(() => renderApp(store));
-renderApp(store);
+render(
+  <Provider store={store}>
+    <TodoApp />
+  </Provider>,
+  document.getElementById('root')
+);
