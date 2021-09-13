@@ -11,8 +11,8 @@ class App extends Component {
       <div className="App">
         <ul>
           <li><Link to="/all">全てのカテゴリ</Link></li>
-          <li><Link to="/category/"{...pcCategoryId}>パソコン、周辺機器</Link></li>
-          <li><Link to="/category/"{...bookCategoryId}>本、雑誌、コミック</Link></li>
+          <li><Link to={"/category/"+pcCategoryId}>パソコン、周辺機器</Link></li>
+          <li><Link to={"/category/"+bookCategoryId}>本、雑誌、コミック</Link></li>
         </ul>
         <Route path="/all" component={Ranking} />
         <Route

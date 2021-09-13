@@ -12,7 +12,6 @@ const history = createBrowserHistory();
 
 // Storeの生成
 const store = createStore(history);
-// const StoreContext = React.createContext(null);
 
 ReactDOM.render(
   <Provider store={store}>
