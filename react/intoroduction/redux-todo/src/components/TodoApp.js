@@ -6,6 +6,8 @@ import Typography from "material-ui/Typography"
 import Button from "material-ui/Button"
 import Input from "material-ui/Input"
 import List, { ListItem, ListItemText } from "material-ui/List"
+import ReactCSSTransitonGroup from "react-addons-css-transition-group"
+import './TodoApp.css'
 
 export default function TodoApp({ task, tasks, inputTask, addTask }) {
   return (
@@ -22,15 +24,17 @@ export default function TodoApp({ task, tasks, inputTask, addTask }) {
         <Input onChange={(e) => inputTask(e.target.value)} />
         <Button raised color="secondary" onClick={() => addTask(task)}>add</Button>
         <List>
-          {
-            tasks.map(function(item, i) {
-              return (
-                <ListItem key={i}>
-                  <ListItemText primary={`・${item}`} />
-                </ListItem>
+          <ReactCSSTransitonGroup transitionName="example" transitionEnterTimeout={300}>
+            {
+              tasks.map(function(item, i) {
+                return (
+                  <ListItem key={i}>
+                    <ListItemText primary={`・${item}`} />
+                  </ListItem>
                 );
               })
             }
+          </ReactCSSTransitonGroup>
         </List>
       </div>
     </div>
