@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
-import Ranking from "./components/Ranking";
+import Ranking from "./containers/Ranking";
 
 const pcCategoryId = 2502
 const bookCategoryId = 10002
