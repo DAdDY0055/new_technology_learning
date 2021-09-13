@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Profiler } from 'react';
+import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux';
 import { createBrowserHistory } from 'history';
 import App from './App';
@@ -12,12 +12,13 @@ const history = createBrowserHistory();
 
 // Storeの生成
 const store = createStore(history);
+// const StoreContext = React.createContext(null);
 
 ReactDOM.render(
-  <Profiler store={store}>
+  <Provider store={store}>
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>
-  </Profiler>,
+  </Provider>,
   document.getElementById('root')
 );
