@@ -1,41 +1,50 @@
-import fetchJsomp from 'fetch-jsonp';
+import fetchJsonp from 'fetch-jsonp';
 import qs from 'qs';
+import { replace } from 'react-router-redux'
 
-const API_URL = 'https://shopping.yahooapis.jp/ShoppingWebService/V1/json/categoryRanking'
-const APP_ID = process.env.REACT_APP_APP_ID
-console.log("APP_ID", APP_ID)
+const API_URL = 'https://shopping.yahooapis.jp/ShoppingWebService/V1/json/categoryRanking';
+const APP_ID = process.env.REACT_APP_APP_ID;
 
-const startRequest = categoryID => ({
+const startRequest = category => ({
   type: 'START_REQUEST',
-  payload: { categoryID },
+  payload: { category },
 });
 
-const receiveData = (categoryID, error, response) => ({
-  type: 'RECEVE_DATA',
-  payload: { categoryID, error, response },
+const receiveData = (category, error, response) => ({
+  type: 'RECEIVE_DATA',
+  payload: { category, error, response },
 });
 
-const finishRequest = categoryID => ({
+const finishRequest = category => ({
   type: 'FINISH_REQUEST',
-  payload: { categoryID },
+  payload: { category },
 });
 
-export const fetchRanking = categoryID => {
-  return async dispatch => {
-    dispatch(startRequest(categoryID));
+export const fetchRanking = categoryId => {
+  return async (dispatch, getState) => {
+    const categories = getState().shopping.categories;
+    const category = categories.find(category => (category.id === categoryId));
+
+    if (typeof category === 'undefined') {
+      dispatch(replace('/'));
+      return;
+    }
+
+    dispatch(startRequest(category));
 
     const queryString = qs.stringify({
       appid: APP_ID,
-      categoryID: categoryID,
+      category_id: categoryId,
     });
 
     try {
-      const response = await fetchJsomp(`${API_URL}?${queryString}`);
+      const response = await fetchJsonp(`${API_URL}?${queryString}`);
       const data = await response.json();
-      dispatch(receiveData(categoryID, null, data));
+
+      dispatch(receiveData(category, null, data));
     } catch (err) {
-      dispatch(receiveData(categoryID, err));
+      dispatch(receiveData(category, err));
     }
-    dispatch(finishRequest(categoryID));
+    dispatch(finishRequest(category));
   };
 };

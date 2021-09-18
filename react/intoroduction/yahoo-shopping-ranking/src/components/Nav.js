@@ -9,8 +9,6 @@ export default function Nav({ categories }) {
       : `/category/${category.id}`
   );
 
-  console.log("categories", categories)
-
   return (
     <ul>
       {categories.map(category => (

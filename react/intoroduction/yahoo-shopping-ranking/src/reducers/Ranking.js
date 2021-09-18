@@ -1,9 +1,11 @@
 // レスポンスからランキング情報だけ取得
 const getRanking = response => {
   const ranking = [];
-  const itemLength = response.ResultSet.totalReturned
+  const itemLength = response.ResultSet.totalResultsReturned
+
   for (let index = 0; index < itemLength; index++) {
-    const item = response.ResultSet['0'].ResultSet[index + ''];
+    const item = response.ResultSet['0'].Result[index + ''];
+
     ranking.push({
       code: item.Code,
       name: item.Name,
@@ -15,7 +17,7 @@ const getRanking = response => {
 };
 
 const initialState = {
-  categoryId: undefined,
+  category: undefined,
   ranking: undefined,
   error: false
 };
@@ -24,7 +26,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case 'START_REQUEST':
       return {
-        categoryId: action.payload.categoryId,
+        category: action.payload.category,
         ranking: undefined,
         error: false
       };

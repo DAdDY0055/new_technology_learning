@@ -13,7 +13,7 @@ class App extends Component {
           <Route path="/all" component={Ranking} />
           <Route
             path="/category/1"
-            render={() => <Redirect to='all' />}
+            render={() => <Redirect to='/all' />}
           />
           <Route
             path="/category/:id"
@@ -22,7 +22,7 @@ class App extends Component {
           />
         </Switch>
       </div>
-    )
+    );
   }
 }
 

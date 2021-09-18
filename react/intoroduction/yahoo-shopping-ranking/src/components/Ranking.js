@@ -1,10 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types"
+import PropTypes, { any } from "prop-types"
 
-const overallRanking = "1"
+const overallRankingId = "1"
 
 export default class Ranking extends React.Component {
-  componentWillUnmount() {
+  componentWillMount() {
     this.props.onMount(this.props.categoryId)
   }
   componentWillReceiveProps(nextProps) {
@@ -12,22 +12,61 @@ export default class Ranking extends React.Component {
       this.props.onUpdate(nextProps.categoryId)
     }
   }
-  // TODO: categoryIdを元にAPIから情報を取得する
+
   render() {
-    return(
+    const { category, ranking, error } = this.props;
+
+    return (
       <div>
-        <h2>Rankingコンポーネント</h2>
-        <p>カテゴリーID: {this.props.categoryId}</p>
+        <h2>{
+          typeof category !== 'undefined'
+            ? `${category.name}のランキング`
+            : ''
+        }</h2>
+
+        {(() => {
+          if (error) {
+            return <p>エラーが発生しました。リロードしてください。</p>;
+          } else if (typeof ranking === 'undefined') {
+            return <p>読み込み中...</p>;
+          } else {
+            return (
+              <ol>
+                {ranking.map(item => (
+                  <li key={`ranking-item-${item.code}`}>
+                    <img alt={item.name} src={item.imageUrl} />
+                    <a href={item.url} target="_blank">{item.name}</a>
+                  </li>
+                ))}
+              </ol>
+            );
+          }
+        })()}
       </div>
-    )
+    );
   }
 }
-// TODO: Ranking.propTypesとRanking.defaultPropsはここで定義している感じ？
+
 Ranking.propTypes = {
-  categoryId: PropTypes.string,
+  categoryId: PropTypes.string.isRequired,
   onMount: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
+
+  category: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
+  ranking: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string.isRequired,
+    })
+  ),
+  error: PropTypes.bool.isRequired
 };
+
 Ranking.defaultProps = {
-  categoryId: overallRanking
+  categoryId: overallRankingId
 }
