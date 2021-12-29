@@ -1,3 +1,5 @@
+import { ColoredMessage } from "./components/ColoredMessage";
+
 export const App = () => {
   // ボタンを押した際にアラートを実行する関数
   const onClickButton = () => {
@@ -5,17 +7,27 @@ export const App = () => {
   }
 
   // CSSオブジェクト
-  const contentStyle = {
-    color: "blue",
-    fontSize: "200px"
-  };
+  // const contentStyle = {
+  //   color: "blue",
+  //   fontSize: "200px"
+  // };
+
+  // ピンク用スタイル
+  // const contentPinkStyle = {
+  //   color: "pink",
+  //   fontSize: "20px"
+  // };
 
   return (
     // 空タグで囲むとFragmentと同じ
     <>
       {console.log("JSX内へのJavaScriptの記載")}
       <h1 style={{ color: "red" }}>こんにちは！</h1>
-      <p style={contentStyle}>お元気ですか？</p>
+      {/* <ColoredMessage color="bule" message="元気？"/> */}
+      <ColoredMessage color="blue">元気ですか？</ColoredMessage>
+      {/* <p style={contentPinkStyle}>元気です！</p> */}
+      {/* <ColoredMessage color="pink" message="元気です！"/> */}
+      <ColoredMessage color="pink">元気です！</ColoredMessage>
       <button onClick={onClickButton}>ボタン</button>
     </>
   )
