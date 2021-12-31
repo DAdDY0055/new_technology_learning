@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { ColoredMessage } from "./components/ColoredMessage";
-
+// import { CssModules } from "./components/CssModules";
+import { StyledJsx } from "./components/StyledJsx";
+import { StyledComponents } from "./components/StyledComponents";
+import { Emotion } from "./components/Emotion";
+import { TailwindCss } from "./components/TailwindCss.jsx"
 // const setNum();
 
 export const App = () => {
@@ -36,6 +40,11 @@ export const App = () => {
       <ColoredMessage color="pink">元気です！</ColoredMessage>
       <button onClick={onClickButton}>ボタン</button>
       <p>{num}</p>
+      {/* <CssModules/> */}
+      <StyledJsx />
+      <StyledComponents />
+      <Emotion />
+      <TailwindCss />
     </>
   )
 }
