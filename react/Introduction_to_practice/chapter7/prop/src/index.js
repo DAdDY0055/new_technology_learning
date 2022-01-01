@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
+import { AdminFlagProvider } from "./components/providers/AdminFlagProvider";
 
 ReactDOM.render(
-  <React.StrictMode>
+  // 参照したいコンポーネントを囲む
+  <AdminFlagProvider>
     <App />
-  </React.StrictMode>,
+  </AdminFlagProvider>,
   document.getElementById('root')
 );
