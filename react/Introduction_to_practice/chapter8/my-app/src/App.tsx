@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 // import { useState } from 'react';
 import { ListItem } from './components/ListItem';
 import axios from "axios";
+import type { User } from './types/user';
 
 // sample APIがないので直定義
 const data = [
@@ -25,12 +26,12 @@ const data = [
   },
 ]
 
-type User = {
-  id: number;
-  name: string;
-  age: number;
-  personalColor: string;
-};
+// type User = {
+//   id: number;
+//   name: string;
+//   age: number;
+//   personalColor: string;
+// };
 
 export const App = () => {
   const [users, setUsers] = useState<User[]>(data);
