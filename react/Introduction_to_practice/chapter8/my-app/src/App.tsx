@@ -22,7 +22,8 @@ const data = [
     "id": 3,
     "name": "後藤",
     "age": 23,
-    "personalColor": "green"
+    "personalColor": "green",
+    "hobbies": ["game", "soccer"]
   },
 ]
 
@@ -47,7 +48,13 @@ export const App = () => {
   return (
     <div>
       {users.map(user => (
-        <ListItem id={user.id} name={user.name} age={user.age} personalColor={user.personalColor}/>
+        <ListItem
+          id={user.id}
+          name={user.name}
+          age={user.age}
+          personalColor={user.personalColor}
+          hobbies={user.hobbies}
+        />
       ))}
     </div>
   );
