@@ -25,13 +25,20 @@ const data = [
   },
 ]
 
+type User = {
+  id: number;
+  name: string;
+  age: number;
+  personalColor: string;
+};
+
 export const App = () => {
-  const [users, setUsers] = useState(data);
+  const [users, setUsers] = useState<User[]>(data);
   console.log("users", users)
 
   // 画面表示時にユーザー情報を取得
   useEffect(() => {
-    axios.get("https://example.com/users").then((res: any) => {
+    axios.get<User[]>("https://example.com/users").then((res) => {
       setUsers(res.data);
     })
   }, []);
@@ -39,7 +46,7 @@ export const App = () => {
   return (
     <div>
       {users.map(user => (
-        <ListItem id={user.id} name={user.nama} age={user.age} />
+        <ListItem id={user.id} name={user.name} age={user.age} />
       ))}
     </div>
   );
