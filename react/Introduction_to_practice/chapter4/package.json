@@ -3,7 +3,7 @@
     "@craco/craco": "^6.4.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "node-sass": "^5.0.1",
+    "node-sass": "^7.0.0",
     "styled-components": "^5.3.3",
     "styled-jsx": "^4.0.1",
     "tailwindcss": "^3.0.8"
