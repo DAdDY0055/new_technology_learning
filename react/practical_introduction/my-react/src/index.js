@@ -3,14 +3,25 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-import SelectStyle from './Classnames/SelectStyle'
+// import SelectStyle from './Classnames/SelectStyle'
+import StyledPanel from './Children/StyledPanel';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <SelectStyle mode='da' />
+    {/* <SelectStyle mode='da' /> */}
+    <StyledPanel title={
+        <p>メンバー募集</p>
+      }
+      body={
+        <>
+          <p>ようこそおおおおおおお</p>
+          <p>hoge</p>
+        </>
+      }>
+    </StyledPanel>
   </React.StrictMode>
 );
 
