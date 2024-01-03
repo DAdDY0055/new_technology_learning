@@ -4,7 +4,8 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 // import ListTemplate from './Children/ListTemplate';
 // import books from './contains/books';
-import EventPoint from './Event/EventPoint';
+// import EventPoint from './Event/EventPoint';
+import StateForm from './Form/StateForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,7 +20,8 @@ root.render(
   //   </>
   // )}/>
 
-  <EventPoint />
+  // <EventPoint />
+  <StateForm />
 );
 
 // If you want to start measuring performance in your app, pass a function
