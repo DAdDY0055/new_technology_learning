@@ -8,7 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 // import StateNestImmer from "./Form/StateNestImmer";
 // import FormBasic from "./Form/FormBasic";
 import Query from "./Liberally/Query";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const cli = new QueryClient();

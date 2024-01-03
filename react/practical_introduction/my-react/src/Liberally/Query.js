@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
@@ -14,10 +14,10 @@ const fetchWeather = async () => {
 };
 
 export default function QuerBasic() {
-    const { data, isLoading, isError, error } = useQuery(
-        "weather",
-        fetchWeather,
-    );
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ["weather"],
+        queryFn: fetchWeather,
+    });
     if (isLoading) {
         return <p>Loading...</p>;
     }
