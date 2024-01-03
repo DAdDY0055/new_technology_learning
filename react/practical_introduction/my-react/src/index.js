@@ -5,7 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 // import ListTemplate from './Children/ListTemplate';
 // import books from './contains/books';
 // import EventPoint from './Event/EventPoint';
-import StateNestImmer from "./Form/StateNestImmer";
+// import StateNestImmer from "./Form/StateNestImmer";
+import FormBasic from "./Form/FormBasic";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,7 +22,8 @@ root.render(
     // )}/>
 
     // <EventPoint />
-    <StateNestImmer />,
+    // <StateNestImmer />,
+    <FormBasic />,
 );
 
 // If you want to start measuring performance in your app, pass a function
