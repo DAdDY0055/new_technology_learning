@@ -8,8 +8,10 @@ import reportWebVitals from "./reportWebVitals";
 // import StateNestImmer from "./Form/StateNestImmer";
 // import FormBasic from "./Form/FormBasic";
 import Query from "./Liberally/Query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const cli = new QueryClient();
 root.render(
     // レンダープロップ
     // <ListTemplate src={books} render={ elem => (
@@ -25,7 +27,9 @@ root.render(
     // <EventPoint />
     // <StateNestImmer />,
     // <FormBasic />,
-    <Query />,
+    <QueryClientProvider client={cli}>
+        <Query />,
+    </QueryClientProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

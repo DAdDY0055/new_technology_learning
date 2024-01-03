@@ -1,39 +1,29 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
 const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
 
 const fetchWeather = async () => {
     await sleep(2000);
-    const res =
-        await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Tokyo&lang=ja&appid=
-  `);
+    const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=Tokyo&lang=ja&appid=`,
+    );
     if (res.ok) {
         return res.json();
     }
     throw new Error(res.statusText);
 };
 
-export default function Query({ id }) {
-    const [data, setData] = useState(null);
-    const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-
-    useEffect(() => {
-        setLoading(true);
-        fetchWeather()
-            .then((result) => setData(result))
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false));
-    }, []);
-
+export default function QuerBasic() {
+    const { data, isLoading, isError, error } = useQuery(
+        "weather",
+        fetchWeather,
+    );
     if (isLoading) {
         return <p>Loading...</p>;
     }
-
-    if (error) {
-        return <p>Error: {error}</p>;
+    if (isError) {
+        return <p>Error: {error.message}</p>;
     }
-
     return (
         <figure>
             <img
