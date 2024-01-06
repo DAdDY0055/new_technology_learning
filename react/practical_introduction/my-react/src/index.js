@@ -7,11 +7,12 @@ import reportWebVitals from "./reportWebVitals";
 // import EventPoint from './Event/EventPoint';
 // import StateNestImmer from "./Form/StateNestImmer";
 // import FormBasic from "./Form/FormBasic";
-import Query from "./Liberally/Query";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import Query from "./Liberally/Query";
+import HookTimer from "./hooks/HookTimer";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const cli = new QueryClient();
+// const cli = new QueryClient();
 root.render(
     // レンダープロップ
     // <ListTemplate src={books} render={ elem => (
@@ -27,9 +28,10 @@ root.render(
     // <EventPoint />
     // <StateNestImmer />,
     // <FormBasic />,
-    <QueryClientProvider client={cli}>
-        <Query />,
-    </QueryClientProvider>,
+    <HookTimer init={10} />,
+    // <QueryClientProvider client={cli}>
+    //     <Query />,
+    // </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
